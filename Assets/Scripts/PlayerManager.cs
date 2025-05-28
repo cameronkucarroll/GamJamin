@@ -4,6 +4,7 @@ using GamJamin;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.UIElements;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class PlayerManager : MonoBehaviour
 
     public GameObject creaturesPrefab; // the creature prefab thats gonna be instantiated
 
-    public Transform creaturePlacement; // where the creatures will go this will be set as a slot later
+    public Transform playerTile1Transform; // where the creatures will go this will be set as a slot later
 
     public List<Creature> playerCreaturesInventory; // the players creature inventory
 
@@ -37,7 +38,7 @@ public class PlayerManager : MonoBehaviour
     public void SendOutCreature(int creatureInventoryIndex)
     {
         // instantiates the creature at a set position
-        GameObject newplayerCreature = Instantiate(creaturesPrefab, creaturePlacement);
+        GameObject newplayerCreature = Instantiate(creaturesPrefab, playerTile1Transform);
 
 
 
