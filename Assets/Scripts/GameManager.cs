@@ -6,6 +6,11 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
     public GameObject playerTurnUiManager;
+    public GameObject escMenu;
+    private GameObject mainUiComponents;
+    public GameObject creatureInventoryManager;
+    private PlayerManager playerManager;
+    private SystemMessageUpdater systemMessage;
 
 
     public TextMeshProUGUI stageCounterText;
@@ -15,17 +20,35 @@ public class GameManager : MonoBehaviour
     public bool isPlayerTurn;
     public bool isEnemyTurn;
     public bool didEnemyTakeTurn = false; // so enemy script does not repeat in update method
+    public bool escMenuActive = false;
+    public bool ifPlayerTurnMessagePlayed = false;
+    public bool hasBeenUpdate = false; // sees if the creature inventory has been updated
 
     
     void Start()
     {
         stageCounterText.text = $"Stage: {stageNumber}";
         turnCounterText.text = $"Turn: {turn}";
-        playerTurnUiManager = GameObject.Find("PlayerTurnUiManager");
+        playerManager = FindFirstObjectByType<PlayerManager>();
+        systemMessage = FindFirstObjectByType<SystemMessageUpdater>();
+
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
+  
+        if (Input.GetKeyDown(KeyCode.Escape) && escMenuActive == false)
+        {
+            escMenu.SetActive(true);
+            escMenuActive = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && escMenuActive == true)
+        {
+            escMenu.SetActive(false);
+            escMenuActive = false;
+        }
+
+
 
         // switch between the players turn and the enemys turn
         if (turn % 2 == 1 && turn != 0)
@@ -41,8 +64,14 @@ public class GameManager : MonoBehaviour
         // if its Players Turn
         if (isPlayerTurn)
         {
-            Debug.Log("it is the players turn");
+            
             RunPlayerManager();
+            if (ifPlayerTurnMessagePlayed == false) // so the player message displayes only once
+            {
+                Debug.Log("it is the players turn");
+                systemMessage.UpdateSystemMessage("What will you do...?");
+                ifPlayerTurnMessagePlayed = true;
+            }
         }
         else if (!isPlayerTurn)
         {
@@ -51,8 +80,10 @@ public class GameManager : MonoBehaviour
          if (isEnemyTurn && didEnemyTakeTurn == false)
         {
             Debug.Log("it is the enemys turn");
+            systemMessage.UpdateSystemMessage("The Enemy is Acting...");
             StartCoroutine(RunEnemyManager()); // starts the functions time
             didEnemyTakeTurn = true;
+            ifPlayerTurnMessagePlayed = false; // so the player message displays
         }
     }
 
@@ -61,7 +92,9 @@ public class GameManager : MonoBehaviour
         Debug.Log("Run Started!");
         stageNumber = 1;
         turn = 1;
-        
+        playerManager.RemoveCreaturesOnFeild(playerManager.creaturesOnFeild);
+        playerManager.RemoveCreaturesOnFeild(playerManager.creaturesOnFeild);
+
     }
     public void EndTurn()
     {
@@ -84,10 +117,26 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(3);
 
+        systemMessage.UpdateSystemMessage("Enemy ended its turn");
+
+        yield return new WaitForSeconds(1);
         Debug.Log("The enemy ends the round");
 
         EndTurn();
     }
+    public void CloseCreatureInventory() // closes creature inventory
+    {
+        creatureInventoryManager.SetActive(false);
+        hasBeenUpdate = false;
+    }
 
-    
+    public void OpenCreatureInventory()
+    {
+        creatureInventoryManager.SetActive(true); // open creatures inventory
+        hasBeenUpdate = true;
+
+        
+    }
+
+
 }
