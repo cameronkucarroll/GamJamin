@@ -11,12 +11,13 @@ public class GameManager : MonoBehaviour
     public GameObject creatureInventoryManager;
     private PlayerManager playerManager;
     private SystemMessageUpdater systemMessage;
+    private EnemyManager enemyManager;
 
 
     public TextMeshProUGUI stageCounterText;
     public TextMeshProUGUI turnCounterText;
     public int stageNumber = 1;
-    public int turn = 0;
+    public int turn = 0; 
     public bool isPlayerTurn;
     public bool isEnemyTurn;
     public bool didEnemyTakeTurn = false; // so enemy script does not repeat in update method
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
         turnCounterText.text = $"Turn: {turn}";
         playerManager = FindFirstObjectByType<PlayerManager>();
         systemMessage = FindFirstObjectByType<SystemMessageUpdater>();
+        enemyManager = FindFirstObjectByType<EnemyManager>();
 
     }
 
@@ -113,7 +115,7 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator RunEnemyManager() // means its a function that waits some time
     {
-        Debug.Log("The enemy is deciding");
+        enemyManager.SpawnEnemyCreature(0);
 
         yield return new WaitForSeconds(3);
 
