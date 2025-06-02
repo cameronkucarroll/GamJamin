@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public GameObject playerTurnUiManager;
     public GameObject escMenu;
+    private SkillManager skillManager;
+
     private GameObject mainUiComponents;
     public GameObject creatureInventoryManager;
     private PlayerManager playerManager;
@@ -25,6 +27,8 @@ public class GameManager : MonoBehaviour
     public bool ifPlayerTurnMessagePlayed = false;
     public bool hasBeenUpdate = false; // sees if the creature inventory has been updated
 
+    public bool playedFirstSummon = false;
+
     
     void Start()
     {
@@ -33,12 +37,28 @@ public class GameManager : MonoBehaviour
         playerManager = FindFirstObjectByType<PlayerManager>();
         systemMessage = FindFirstObjectByType<SystemMessageUpdater>();
         enemyManager = FindFirstObjectByType<EnemyManager>();
+        skillManager = FindFirstObjectByType<SkillManager>();
+
 
     }
 
     private void Update()
     {
-  
+        // round 1 (setup round)
+
+        if (turn == 1 && stageNumber == 1)
+        {
+            systemMessage.UpdateSystemMessage("Pick your first Summon");
+            creatureInventoryManager.SetActive(true);
+            if (playedFirstSummon)
+            {
+                creatureInventoryManager.SetActive(false);
+                EndTurn();
+            }
+
+        }
+       
+        // escape menu 
         if (Input.GetKeyDown(KeyCode.Escape) && escMenuActive == false)
         {
             escMenu.SetActive(true);
@@ -118,6 +138,8 @@ public class GameManager : MonoBehaviour
         enemyManager.SpawnEnemyCreature(0);
 
         yield return new WaitForSeconds(3);
+
+
 
         systemMessage.UpdateSystemMessage("Enemy ended its turn");
 

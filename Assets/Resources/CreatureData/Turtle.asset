@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a90e535b4373b9a468c328d6bd202521, type: 3}
   m_Name: Turtle
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Turtle
+  health: 10
+  damage: 1
+  creatureSkills:
+  - {fileID: 11400000, guid: 19eb5ccfbdd617c42aedc344cfe80132, type: 2}
+  - {fileID: 11400000, guid: 19eb5ccfbdd617c42aedc344cfe80132, type: 2}
+  - {fileID: 11400000, guid: 19eb5ccfbdd617c42aedc344cfe80132, type: 2}

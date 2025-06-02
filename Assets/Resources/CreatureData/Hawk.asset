@@ -13,3 +13,9 @@ MonoBehaviour:
   m_Name: Hawk
   m_EditorClassIdentifier: 
   Name: Hawk
+  health: 10
+  damage: 1
+  creatureSkills:
+  - {fileID: 11400000, guid: 9e24961318b58f649801b9d2122eb092, type: 2}
+  - {fileID: 11400000, guid: 19eb5ccfbdd617c42aedc344cfe80132, type: 2}
+  - {fileID: 11400000, guid: 19eb5ccfbdd617c42aedc344cfe80132, type: 2}

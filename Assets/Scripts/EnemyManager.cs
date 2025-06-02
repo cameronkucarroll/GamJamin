@@ -46,6 +46,9 @@ public class EnemyManager : MonoBehaviour
 
             // sets the instanitaed creatures data by going into the instantiated components CreatureDataLoader Script and setting creature data to the data in the inventory
             newplayerCreature.GetComponent<CreatureDataLoader>().creatureData = enemyCreaturePool[creatureInventoryIndex];
+            newplayerCreature.GetComponent<CreatureDataLoader>().isEnemy = true;
+            newplayerCreature.GetComponent<CreatureDataLoader>().currentSlotIndex = 1;
+
             newplayerCreature.GetComponent<CreatureDataLoader>().UpdateCreatureDataVisuals();
             messageUpdater.UpdateSystemMessage("Enemy appeared!"); // sets the board message
 
@@ -64,6 +67,8 @@ public class EnemyManager : MonoBehaviour
 
             // sets the instanitaed creatures data by going into the instantiated components CreatureDataLoader Script and setting creature data to the data in the inventory
             newplayerCreature.GetComponent<CreatureDataLoader>().creatureData = enemyCreaturePool[creatureInventoryIndex];
+            newplayerCreature.GetComponent<CreatureDataLoader>().isEnemy = true;
+            newplayerCreature.GetComponent<CreatureDataLoader>().currentSlotIndex = 2;
             newplayerCreature.GetComponent<CreatureDataLoader>().UpdateCreatureDataVisuals();
             messageUpdater.UpdateSystemMessage("Enemy appeared!"); // sets the board message
 
@@ -83,6 +88,8 @@ public class EnemyManager : MonoBehaviour
             // sets the instanitaed creatures data by going into the instantiated components CreatureDataLoader Script and setting creature data to the data in the inventory
             newplayerCreature.GetComponent<CreatureDataLoader>().creatureData = enemyCreaturePool[creatureInventoryIndex];
             newplayerCreature.GetComponent<CreatureDataLoader>().UpdateCreatureDataVisuals();
+            newplayerCreature.GetComponent<CreatureDataLoader>().isEnemy = true;
+            newplayerCreature.GetComponent<CreatureDataLoader>().currentSlotIndex = 3;
             messageUpdater.UpdateSystemMessage("Enemy appeared!"); // sets the board message
 
             // sets the summon spot to full

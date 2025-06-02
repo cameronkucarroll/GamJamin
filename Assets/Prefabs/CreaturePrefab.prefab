@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2009269765129528103}
   - component: {fileID: 2633788814492200391}
+  - component: {fileID: 1007100137817355907}
   m_Layer: 0
   m_Name: CreaturePrefab
   m_TagString: Untagged
@@ -48,6 +49,20 @@ MonoBehaviour:
   creaturePrefab: {fileID: 2012210739668422297}
   creatureData: {fileID: 11400000, guid: 7bf5bbb4acf3e5847941a39fffdb2676, type: 2}
   creatureName: {fileID: 6847526121514467385}
+  creatureHealth: 0
+  creatureDamage: 0
+--- !u!114 &1007100137817355907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012210739668422297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9cfe5111c502f848b23b08bbd3ba7a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5589854366915699843
 GameObject:
   m_ObjectHideFlags: 0

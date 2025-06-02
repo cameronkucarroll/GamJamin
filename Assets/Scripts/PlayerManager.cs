@@ -10,6 +10,8 @@ public class PlayerManager : MonoBehaviour
 {
     private TileManager tileManager;
     private SystemMessageUpdater messageUpdater;
+    private GameManager gameManager;
+    public SkillUiManager skillUiManager;
 
     public GameObject creaturesPrefab; // the creature prefab thats gonna be instantiated
 
@@ -29,6 +31,8 @@ public class PlayerManager : MonoBehaviour
 
         tileManager = FindFirstObjectByType<TileManager>();
         messageUpdater = FindFirstObjectByType<SystemMessageUpdater>();
+        gameManager = FindFirstObjectByType<GameManager>();
+
 
     }
 
@@ -51,11 +55,23 @@ public class PlayerManager : MonoBehaviour
             newplayerCreature.GetComponent<CreatureDataLoader>().creatureData = playerCreaturesInventory[creatureInventoryIndex];
             newplayerCreature.GetComponent<CreatureDataLoader>().UpdateCreatureDataVisuals();
 
+            // setting the creatureDataLoader
+            CreatureDataLoader Instance = newplayerCreature.GetComponent<CreatureDataLoader>();
+            // set the skill ui Managers instance of CreatureDatamanager
+            skillUiManager.creatureData1 = Instance;
+
             // sets the summon spot to full
             tileManager.tile1IsFull = true;
 
             // assign the Instantitated objects to a list
             creaturesOnFeild.Add(newplayerCreature);
+
+
+            // if its the first turn of the stage set first summon to true
+            if (gameManager.turn == 1)
+            {
+                gameManager.playedFirstSummon = true;
+            }
         }
         else if (tileManager.tile1IsFull == true && tileManager.tile2IsFull == false)
         {
@@ -70,6 +86,10 @@ public class PlayerManager : MonoBehaviour
 
             // sets the summon spot to full
             tileManager.tile2IsFull = true;
+            // setting the creatureDataLoader
+            CreatureDataLoader Instance = newplayerCreature.GetComponent<CreatureDataLoader>();
+            // set the skill ui Managers instance of CreatureDatamanager
+            skillUiManager.creatureData2 = Instance;
 
             // assign the Instantitated objects to a list
             creaturesOnFeild.Add(newplayerCreature);
